@@ -4,7 +4,8 @@
 
 ## Requirement
 - Python3
-- Flask
+- Flask v1.1.2
+- Bootstrap
 ## Cara Menggunakan
 
 ### Author

@@ -56,7 +56,6 @@ def makeGraph():
     index = int()
     for adjArray in adjMatrix:
         n = getKey(nodes, nodeNames[index])
-        print(n)
         adjNodes = dict()
         i = int()
         for n1 in adjArray:
