@@ -11,12 +11,15 @@ import math
 <matriks ketetanggaan>
 '''
 
-nodes = dict()
-nodeNames = list()
-adjMatrix = list()
-totalNodes = int()
+class parsed:
+    def __init__(self, nodes, adjMatrix):
+        self.nodes = nodes
+        self.adjMatrix = adjMatrix
 
 def parse(filename):
+    nodes = list()
+    adjMatrix = list()
+    
     f = open('../test/' + filename, 'r')
     totalNodes = int(f.readline().rstrip())
 
@@ -24,9 +27,8 @@ def parse(filename):
     for line in temp:
         line = line.rstrip().split(' - ')
         line[1] = line[1].split(', ')
-        temp = dict([(tuple(line[1]), line[0])])
-        nodes.update(temp)
-        nodeNames.append(line[0])
+        temp = line[0], line[1][0], line[1][1]
+        nodes.append(tuple(temp))
     f.close()
 
     f = open('../test/' + filename, 'r')
@@ -35,6 +37,8 @@ def parse(filename):
         line = line.rstrip().split(' ')
         adjMatrix.append(list(line))
     f.close()
+
+    return parsed(nodes, adjMatrix)
 
 def getDistance(latA, longA, latB, longB):
     latA = float(latA)
@@ -51,20 +55,20 @@ def getDistance(latA, longA, latB, longB):
 def deg2rad(deg):
     return deg * (math.pi/180)
 
-def makeGraph():
+def makeGraph(parsedInput):
     graph = list()
     index = int()
-    for adjArray in adjMatrix:
-        n = getKey(nodes, nodeNames[index])
+    for adjArray in parsedInput.adjMatrix:
+        n = parsedInput.nodes[index]
         adjNodes = dict()
         i = int()
         for n1 in adjArray:
             if int(n1) == 1:
-                key = getKey(nodes, nodeNames[i])
-                temp = dict([(key, getDistance(n[0], n[1], key[0], key[1]))])
+                key = parsedInput.nodes[i]
+                temp = dict([(key, getDistance(n[1], n[2], key[1], key[2]))])
                 adjNodes.update(temp)
             i += 1
-        graph.append(g.node(n, adjNodes))
+        graph.append(g.node(n, n[1], n[2], adjNodes))
         index += 1
     return graph
 
@@ -75,12 +79,12 @@ def getKey(d, value):
         if d[key] == value:
             return key
 
-# parse('test.txt')
-# graph = makeGraph()
+# test = parse('test.txt')
+# graph = makeGraph(test)
 
 # for n in graph:
-#     print(nodes[n.name], end=": ")
+#     print(n.name[0][0], end=": ")
 #     for o, dist in n.adjacentNodes.items():
 #         # print(dist)
-#         print('{} ({:.2f} km)'.format(nodes[o], dist), end="; ")
+#         print('{} ({:.2f} km)'.format(o[0], dist), end="; ")
 #     print()
