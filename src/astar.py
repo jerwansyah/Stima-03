@@ -4,13 +4,13 @@ def astar(source,target,graph):
     found = False    
     before = source
     source.path.append(source.name[0])
-    visited =[]
+    visited = []
     result = []
-    hasiltetangga =[]
+    hasiltetangga = []
     while (not found):
         visited.append((source.name[1],source.name[2]))
         for x,y in source.adjacentNodes.items():  # Iterasikan setiap node yang bertetanggaan
-            tetangga =[]
+            tetangga = []
             # print("--------------------------------Visited--------------------------------")
             # print(visited)
             # print("--------------------------------x[1] dan x[2]--------------------------------")
@@ -69,16 +69,20 @@ graph = makeGraph(parse('test.txt'))
 
 # for i,j in graph[0].adjacentNodes.items():
 #     print (graph[0].name ,i,j)
-count=0
-result =[]
-for i in graph:
-    result.append(float(i.name[2]))
-print(result)
+# count=0
+# result =[]
+# for i in graph:
+#     result.append(float(i.name[2]))
+# print(result)
 # print(astar(graph[1],graph[19],graph))
 # print(astar(graph[1],graph[0],graph))
 # print(astar(graph[0],graph[19],graph))
 # print(astar(graph[0],graph[16],graph))
 # print(astar(graph[3],graph[8],graph))
+# for i in graph:
+#     for x,y in i.adjacentNodes.items():
+#         print(x[1],x[2])
+#     print()
 # clean(graph)
 # 1 19
 # 0 1
