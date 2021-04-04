@@ -56,6 +56,13 @@ def createMap(graph):
 
     fig.write_html("templates/check.html")
 
+@app.route('/', methods=['GET'])
+def dropdown():
+    result = makeGraph(parse("test.txt"))
+    nodeA = [i.name[0] for i in result]
+    nodeB = [i.name[0] for i in result]
+    return render_template('main.html', nodeA=nodeA, nodeB=nodeB)
+    
 @app.route('/')
 def route():
     createMap(makeGraph(parse('test.txt')))

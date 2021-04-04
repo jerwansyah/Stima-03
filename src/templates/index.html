@@ -1,29 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Stiwima</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}" />
+  <head>     
+    <title>{% block title%}{% endblock %}</title>
     <link rel="icon" type="image/png" href="{{ url_for('static',filename='assets/map.PNG') }}" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css"
       type="text/css"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-      
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+    <scripts>
+      {% block scripts %}
+      {% endblock %}
+    </scripts>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato:ital@0;1&display=swap');
       body {
         font-family: 'Lato', sans-serif;
+        margin: auto;
+        margin-top: 2rem;
+        margin-bottom: 7rem;
+        max-width: 1000px;
+        align-content: center;
       }
-
+      
       .map {
         height: 400px;
         width: 100%;
@@ -31,25 +35,12 @@
     </style>
   </head>
   <body>
-    <div class="container m5">
-      <h2>My Map</h2>
-      <div id="map" class="map"></div>
-      <script type="text/javascript">
-        var map = new ol.Map({
-          target: "map",
-          layers: [
-            new ol.layer.Tile({
-              source: new ol.source.OSM(),
-            }),
-          ],
-          view: new ol.View({
-            center: ol.proj.fromLonLat([44.457, 26.093]),
-            zoom: 4,
-          }),
-        });
-      </script>
-    </div>
-    <div class="container">
-    </div>
+    <h1>Stiwima</h1>
+    {% block content1 %}
+    {% endblock %}
+    {% block uploader %}
+    {% endblock %}
+    {% block chooseNodes %}
+    {% endblock %}
   </body>
 </html>
