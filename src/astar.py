@@ -7,7 +7,6 @@ def astar(source,target,graph):
     visited =[]
     result = []
     hasiltetangga =[]
-    result.append(source.name[0])
     while (not found):
         visited.append((source.name[1],source.name[2]))
         for x,y in source.adjacentNodes.items():  # Iterasikan setiap node yang bertetanggaan
@@ -22,9 +21,13 @@ def astar(source,target,graph):
                 # source.cost = before.cost + y
                 # print()
                 # print(before.path)
-                searchNode(x,graph).path.extend(before.path)
                 # print(searchNode(x,graph).path)
-                searchNode(x,graph).path.append(x[0])
+                if (len(searchNode(x,graph).path) == 0):
+                    searchNode(x,graph).path.extend(before.path)
+                # print(searchNode(x,graph).path)
+                if (x[0] not in searchNode(x,graph).path):
+                    searchNode(x,graph).path.append(x[0])
+                # print(searchNode(x,graph).path)
                 # print(searchNode(x,graph).path)
             if (len(tetangga) != 0):
                 hasiltetangga.append(tetangga)
@@ -43,18 +46,21 @@ def astar(source,target,graph):
         hasiltetangga.pop()
         # print(hasiltetangga)
         # if (source.name[0] not in result):
-        result.append(source.name[0])
-        
         if (source.name == target.name):
             found = True
-    return source.path
+    result.extend(source.path)
+    clean(graph)
+    return result
 
 def searchNode(name,graph):
     for i in graph:
         if i.name[1] == name[1] and i.name[2] == name[2]:
             return i
 
-        
+def clean(graph):
+    for i in graph:
+        i.path.clear()
+        i.cost = 0  
 
 graph = makeGraph(parse('test.txt'))
 # print(nodes)
@@ -63,11 +69,25 @@ graph = makeGraph(parse('test.txt'))
 
 # for i,j in graph[0].adjacentNodes.items():
 #     print (graph[0].name ,i,j)
-# count=0
+count=0
 # for i in graph:
 #     print (count,i.name[0])
 #     count +=1 
-print(astar(graph[1],graph[9],graph))
+print(astar(graph[1],graph[19],graph))
+# clean(graph)
+print(astar(graph[1],graph[0],graph))
+# clean(graph)
+print(astar(graph[0],graph[19],graph))
+# clean(graph)
+print(astar(graph[0],graph[16],graph))
+# clean(graph)
+print(astar(graph[3],graph[8],graph))
+# clean(graph)
+# 1 19
+# 0 1
+# 0 19
+# 19 16
+# 3 8
 # for i in graph:
 #     for x,y in i.adjacentNodes.items():
 #         print(i.name[0],end = " ") 
