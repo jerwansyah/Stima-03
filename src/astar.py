@@ -70,18 +70,15 @@ graph = makeGraph(parse('test.txt'))
 # for i,j in graph[0].adjacentNodes.items():
 #     print (graph[0].name ,i,j)
 count=0
-# for i in graph:
-#     print (count,i.name[0])
-#     count +=1 
-print(astar(graph[1],graph[19],graph))
-# clean(graph)
-print(astar(graph[1],graph[0],graph))
-# clean(graph)
-print(astar(graph[0],graph[19],graph))
-# clean(graph)
-print(astar(graph[0],graph[16],graph))
-# clean(graph)
-print(astar(graph[3],graph[8],graph))
+result =[]
+for i in graph:
+    result.append(float(i.name[2]))
+print(result)
+# print(astar(graph[1],graph[19],graph))
+# print(astar(graph[1],graph[0],graph))
+# print(astar(graph[0],graph[19],graph))
+# print(astar(graph[0],graph[16],graph))
+# print(astar(graph[3],graph[8],graph))
 # clean(graph)
 # 1 19
 # 0 1
