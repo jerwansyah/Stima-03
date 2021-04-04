@@ -1,0 +1,78 @@
+{% extends "index.html" %}
+{% block title %}Stiwima{% endblock %}
+{% block metas %}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+{% endblock %}
+
+{% block content1 %}
+<h2>My Map</h2>
+<div id="map" class="map"></div>
+<script type="text/javascript">
+  var map = new ol.Map({
+  target: "map",
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.OSM(),
+    }),
+  ],
+  view: new ol.View({
+    center: ol.proj.fromLonLat([26.093, 44.457]),
+    zoom: 4,
+  }),
+});
+</script>
+{% endblock %}
+{% block uploader %}
+<div class="container my-3 w-50">
+  <div class="row">
+    <div class="col-sm">
+      <h4>Browse File: </h4>
+    </div>
+    <div class="col-sm">
+      <button type="button" class="btn btn-outline-primary">Browse</button>
+    </div>
+    <!-- <div class="col-sm mx-3">
+      <p>{{filename}}</p>
+    </div> -->
+  </div>
+</div>
+{% endblock %}
+{% block chooseNodes %}
+<div class="container w-50">
+  <div class="row">
+    <div class="col-sm">
+      <p>Node A: </p>
+    </div>
+    <div class="col-sm">
+      <select name=nA method="GET" action="/">
+        <option value="{{nodeA[0]}}" selected>{{nodeA[0]}}</option>
+        {% for nA in nodeA[1:] %}
+        <option value="{{nA}}">{{nA}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <p>Node B: </p>
+    </div>
+    <div class="col-sm">
+      <select name=nA method="GET" action="/">
+        <option value="{{nodeA[0]}}" selected>{{nodeB[0]}}</option>
+        {% for nB in nodeB[1:] %}
+        <option value="{{nB}}">{{nB}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+<!-- <p>Node A:{{ nodeA }}</p> -->
+{% endblock %}
