@@ -1,6 +1,7 @@
 import chart_studio
 import chart_studio.plotly as py
 import plotly.graph_objects as go
+import chart_studio.tools as tls
 
 from astar import *
 
@@ -15,7 +16,7 @@ def createMap(graph):
         lat = [],
         marker = {'size': 10}))
     result = astar(graph[1],graph[19],graph)
-    print(result)
+    # print(result)
     for i in graph:
         lintang.append(i.name[2])
         bujur.append(i.name[1])
@@ -56,7 +57,7 @@ def createMap(graph):
             'center': {'lon': -20, 'lat': -20},
             'zoom': 1})
 
-    plot_url = py.plot(fig)
+    plot_url = py.plot(fig,auto_open=False)
     return(plot_url)
     
     # fig.create_html("templates/check.html")
