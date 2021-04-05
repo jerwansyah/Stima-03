@@ -13,66 +13,57 @@
 {% endblock %}
 
 {% block content1 %}
-<h2>My Map</h2>
-<div id="map" class="map"></div>
-<script type="text/javascript">
-  var map = new ol.Map({
-  target: "map",
-  layers: [
-    new ol.layer.Tile({
-      source: new ol.source.OSM(),
-    }),
-  ],
-  view: new ol.View({
-    center: ol.proj.fromLonLat([26.093, 44.457]),
-    zoom: 4,
-  }),
-});
-</script>
+<iframe width="1000" height="500" frameborder="0" src="//plotly.com/~Zenovore/1.embed"></iframe>
 {% endblock %}
+
 {% block uploader %}
-<div class="container my-3 w-50">
-  <div class="row">
-    <div class="col-sm">
-      <h4>Browse File: </h4>
-    </div>
-    <div class="col-sm">
-      <button type="button" class="btn btn-outline-primary">Browse</button>
-    </div>
-    <!-- <div class="col-sm mx-3">
-      <p>{{filename}}</p>
-    </div> -->
-  </div>
+<div class="container my-3">
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" />
+      <input type="submit" name="sabmeet" value="Submit" />
+  </form> 
 </div>
 {% endblock %}
+
 {% block chooseNodes %}
-<div class="container w-50">
+<div class="container">
+  <form action="/upload" method="GET">
+    <div class="row">
+      <div class="col-sm">
+        <select name=nA style="width: 200px">
+          <option value="{{src}}" selected>{{src}}</option>
+          {% for nA in nodeA[1:] %}
+          <option value="{{nA}}">{{nA}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm">{{src}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <select name=nB style="width: 200px">
+          <option value="{{dest}}" selected>{{dest}}</option>
+          {% for nB in nodeB[1:] %}
+          <option value="{{nB}}">{{nB}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-sm">{{dest}}</div>
+    </div>
+    <br>
+  </form>
+  <!-- <div class="row">
+    <form action="/" method='GET'>
+      <div class="col-sm"><p>{{src}}</p></div>
+      <div class="col-sm"><p>{{dest}}</p></div>
+    </form>
+  </div> -->
   <div class="row">
     <div class="col-sm">
-      <p>Node A: </p>
-    </div>
-    <div class="col-sm">
-      <select name=nA method="GET" action="/">
-        <option value="{{nodeA[0]}}" selected>{{nodeA[0]}}</option>
-        {% for nA in nodeA[1:] %}
-        <option value="{{nA}}">{{nA}}</option>
-        {% endfor %}
-      </select>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm">
-      <p>Node B: </p>
-    </div>
-    <div class="col-sm">
-      <select name=nA method="GET" action="/">
-        <option value="{{nodeA[0]}}" selected>{{nodeB[0]}}</option>
-        {% for nB in nodeB[1:] %}
-        <option value="{{nB}}">{{nB}}</option>
-        {% endfor %}
-      </select>
+      <form action="/astar" method="POST">
+        <input type="submit" name="getMap" value="Astar!"/>
+      </form>
     </div>
   </div>
 </div>
-<!-- <p>Node A:{{ nodeA }}</p> -->
 {% endblock %}

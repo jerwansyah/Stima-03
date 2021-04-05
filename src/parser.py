@@ -4,10 +4,10 @@ import math
 # format file:
 '''
 <jumlah simpul (n)>
-<nama simpul 1> - <lintang>, <bujur>
-<nama simpul 2> - <lintang>, <bujur>
+<nama simpul 1>,<lintang>,<bujur>
+<nama simpul 2>,<lintang>,<bujur>
 ...
-<nama simpul n> - <lintang>, <bujur>
+<nama simpul n>,<lintang>,<bujur>
 <matriks ketetanggaan>
 '''
 
@@ -17,27 +17,23 @@ class parsed:
         self.nodes = nodes
         self.adjMatrix = adjMatrix
 
-def parse(filename):
+def parse(file):
     nodes = list()
     adjMatrix = list()
     
-    f = open('../test/' + filename, 'r')        # file harus berada di folder test
-    totalNodes = int(f.readline().rstrip())     # membaca jumlah simpul
+    # f = open('../test/' + file, 'r')        # file harus berada di folder test
+    totalNodes = int(file.readline().rstrip())     # membaca jumlah simpul
 
-    temp = f.readlines()[0:totalNodes]          # membaca n jumlah simpul
+    temp = file.readlines()                 # membaca n jumlah simpul
+    i = 0
     for line in temp:
-        line = line.rstrip().split(' - ')
-        line[1] = line[1].split(', ')
-        temp = line[0], line[1][0], line[1][1]  # nama, latitude, longitude
-        nodes.append(tuple(temp))
-    f.close()
-
-    f = open('../test/' + filename, 'r')        # membaca adjacency matrix
-    temp = f.readlines()[totalNodes+1:totalNodes+1+totalNodes]
-    for line in temp:
-        line = line.rstrip().split(' ')
-        adjMatrix.append(list(line))
-    f.close()
+        if i < totalNodes:
+            line = line.rstrip().split(',')
+            nodes.append(tuple(line))
+        else:
+            line = line.rstrip().split(' ')
+            adjMatrix.append(list(line))
+        i += 1
 
     return parsed(nodes, adjMatrix)
 
