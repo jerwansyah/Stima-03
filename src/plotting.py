@@ -60,7 +60,7 @@ def createMap(graph, src, dest):
             'center': {'lon': float(graph[0].name[2]), 'lat': float(graph[0].name[1])},
             'style': "open-street-map",
             'center': {'lon': float(graph[0].name[2]), 'lat': float(graph[0].name[1])},
-            'zoom': 15})
+            'zoom': 8})
 
     plot_url = py.plot(fig,auto_open=False)
     print(plot_url)
