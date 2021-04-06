@@ -20,7 +20,7 @@
 <div class="container my-3">
   <form action="/upload" method="POST" enctype="multipart/form-data">
       <input type="file" name="file" />
-      <input type="submit" name="sabmeet" value="Submit" />
+      <input type="submit" name="sendGraph" value="Submit" />
   </form> 
 </div>
 {% endblock %}
@@ -48,7 +48,17 @@
       </div>
       <div class="col-sm">{{dest}}</div>
     </div>
-    <br>
-    <input type="submit" name="getMap" value="Astar!"/>
+    <div class="row">
+      <div class="col-sm">
+        <p>
+          {{ cost }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+      <input type="submit" name="getMap" value="Astar!"/>
+    </div>
   </form>
+</div>
 {% endblock %}

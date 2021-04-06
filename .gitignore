@@ -1,5 +1,7 @@
 Tugas-Kecil-3-2021.pdf
 .vscode
 **/*/__pycache__/
+**/*/.pytest_cache
 **/*/test.py
 **/*/check.html
+**/*/test.txt

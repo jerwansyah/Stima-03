@@ -20,8 +20,10 @@ def createMap(graph, src, dest):
         lon = [],
         lat = [],
         marker = {'size': 10}))
-    result = astar(graph[getIndexFromName(graph,src)],graph[getIndexFromName(graph,dest)],graph)
-    print(result)
+    astaresult = astar(graph[getIndexFromName(graph,src)],graph[getIndexFromName(graph,dest)],graph)
+    astaresult2 = astar(graph[getIndexFromName(graph,dest)],graph[getIndexFromName(graph,src)],graph)
+
+    result = astaresult[0]
     for i in graph:
         lintang.append(i.name[2])
         bujur.append(i.name[1])
@@ -43,28 +45,45 @@ def createMap(graph, src, dest):
                     hoverinfo = "none",
                     line_color = '#000000'))
     for i in graph:
-        fig.add_trace(go.Scattermapbox(
-            mode = "markers",
-            lon = [i.name[2]],
-            lat = [i.name[1]],
-            name = i.name[0],
-            hoverinfo = 'name',
-            marker_color = '#000000',
-            marker = {'size':20}))
-
-    # fig.update_traces(marker_color = "#00000")
+        if (len(result) != 0 and (i.name[0]== result[0] or i.name[0] == result[-1])):
+            fig.add_trace(go.Scattermapbox(
+                mode = "markers",
+                lon = [i.name[2]],
+                lat = [i.name[1]],
+                name = i.name[0],
+                hoverinfo = 'name',
+                marker_color = '#9E2B2B',
+                marker = {'size':20}))
+        elif(i.name[0] in result):
+            fig.add_trace(go.Scattermapbox(
+                mode = "markers",
+                lon = [i.name[2]],
+                lat = [i.name[1]],
+                name = i.name[0],
+                hoverinfo = 'name',
+                marker_color = '#cbd967',
+                marker = {'size':20}))
+        else:
+            fig.add_trace(go.Scattermapbox(
+                mode = "markers",
+                lon = [i.name[2]],
+                lat = [i.name[1]],
+                name = i.name[0],
+                hoverinfo = 'name',
+                marker_color = '#000000',
+                marker = {'size':20}))
 
     fig.update_layout(
         margin ={'l':0,'t':0,'b':0,'r':0},
         mapbox = {
             'center': {'lon': float(graph[0].name[2]), 'lat': float(graph[0].name[1])},
-            'style': "open-street-map",
+            'style': "light",
             'center': {'lon': float(graph[0].name[2]), 'lat': float(graph[0].name[1])},
-            'zoom': 8})
+            'zoom': 15})
 
     plot_url = py.plot(fig,auto_open=False)
-    print(plot_url)
-    return(plot_url)
-
-# result = createMap(makeGraph(parse("test.txt")))
-# print(result)
+    if (astaresult[1]>astaresult2[1]):
+        output = [plot_url, astaresult2[1]]
+    else:
+        output = [plot_url, astaresult[1]]
+    return(output)

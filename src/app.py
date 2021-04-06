@@ -33,11 +33,11 @@ def route():
         nodeB = gobj.nodeB
         src = gobj.src
         dest = gobj.dest
-    return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala='')
+    return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala='', cost='')
 
 @app.route('/upload', methods=['POST', 'GET'])
 def uploadFile():
-    if 'sabmeet' in request.form:
+    if 'sendGraph' in request.form:
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -59,6 +59,7 @@ def uploadFile():
             nodeB = [i.name[0] for i in result]
             src = nodeA[0]
             dest = nodeB[0]
+
             with test:
                 gobj.result = result
                 gobj.nodeA = nodeA
@@ -66,52 +67,30 @@ def uploadFile():
                 gobj.src = nodeA[0]
                 gobj.dest = nodeB[0]
 
-                # print(gobj.result)
-                # print(gobj.nodeA)
-                # print(gobj.nodeB)
-                # print(gobj.src)
-                # print(gobj.dest)
-        return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala='')
+        return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala='', cost='')
     return render_template('main.html')
-    # if request.method == 'POST':
-    #     if 'getMap' in request.form:
-    #         print(request.form.get('src'))
-    #         with test:
-    #             print(request.form.get('src'))
-    #             gobj.src = request.form.get('src')
-    #             gobj.dest = request.form.get('dest')
-    #             # print(gobj.src)
-    #             # print(gobj.dest)
-    #             # print(gobj.result)
-    #             # pranala = createMap(gobj.src, gobj.dest, gobj.result)
-    #             nodeA = gobj.nodeA
-    #             nodeB = gobj.nodeB
-    #             src = gobj.src
-    #             dest = gobj.dest
-    #         return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala='')
 
-# @app.route('/upload', methods=['POST', 'GET'])
 @app.route('/astar', methods=['POST', 'GET'])
 def viewMap():
     if request.method == 'POST':
         if 'getMap' in request.form:
             with test:
-                
                 gobj.src = request.form.get('nA')
                 gobj.dest = request.form.get('nB')
-                # print(gobj.src)
-                # print(gobj.dest)
-                # print(gobj.src)
-                # print(gobj.dest)
-                # print(gobj.result)
-                hasil = createMap(gobj.result,gobj.src,gobj.dest)
-                pranala = hasil[0]
-                cost = hasil[0]
+
+                output = createMap(gobj.result,gobj.src,gobj.dest)
+                pranala = output[0]       
+                if output[1] == '-1':
+                    cost = 'Nodes chosen are not unique'
+                elif output[1] == '-2':
+                    cost = 'No available path'
+                else:
+                    cost = f'Cost: {output[1]:.6f} km'
                 nodeA = gobj.nodeA
                 nodeB = gobj.nodeB
                 src = gobj.src
                 dest = gobj.dest
-            return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala=pranala)
+            return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala=pranala, cost=cost)
 
 if __name__ == '__main__':
     app.run(debug=True, host='localhost', port=2211)
