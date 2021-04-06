@@ -62,7 +62,7 @@ def clean(graph):
         i.path.clear()
         i.cost = 0  
 
-graph = makeGraph(parse('test.txt'))
+# graph = makeGraph(parse('test.txt'))
 # print(nodes)
 # for i in graph :
 #     print(i.adjacentNodes)

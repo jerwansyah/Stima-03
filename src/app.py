@@ -1,7 +1,10 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 import plotly.graph_objects as go
+import chart_studio
+import chart_studio.plotly as py
 from astar import *
+chart_studio.tools.set_credentials_file(username='Zenovore', api_key='WVo1aIq79gDxkydrcXbn')
 app = Flask(__name__)
 
 def createMap(graph):
@@ -54,7 +57,23 @@ def createMap(graph):
             'center': {'lon': -20, 'lat': -20},
             'zoom': 1})
 
-    fig.write_html("templates/check.html")
+    plot_url = py.plot(fig)
+    print(plot_url)
+    
+    fig.create_html("templates/check.html")
+
+def check():
+    trace0 = go.Scatter(
+        x=[1, 2, 3, 4],
+        y=[10, 15, 13, 17]
+    )
+    trace1 = go.Scatter(
+        x=[1, 2, 3, 4],
+        y=[16, 5, 11, 9]
+    )
+    data = [trace0, trace1]
+
+    py.plot(data, filename = 'basic-line', auto_open=True)
 
 @app.route('/', methods=['GET'])
 def dropdown():
@@ -62,10 +81,11 @@ def dropdown():
     nodeA = [i.name[0] for i in result]
     nodeB = [i.name[0] for i in result]
     return render_template('main.html', nodeA=nodeA, nodeB=nodeB)
-    
+
 @app.route('/')
 def route():
-    createMap(makeGraph(parse('test.txt')))
+    # createMap(makeGraph(parse('test.txt')))
+    check()
     return render_template('check.html')
 
 if __name__ == '__main__':
