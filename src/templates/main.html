@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content1 %}
-<iframe width="1000" height="500" frameborder="0" src="//plotly.com/~Zenovore/1.embed"></iframe>
+<iframe width="1000" height="500" frameborder="0" src="{{ pranala }}"></iframe>
 {% endblock %}
 
 {% block uploader %}
@@ -51,19 +51,14 @@
       <div class="col-sm">{{dest}}</div>
     </div>
     <br>
+    <input type="submit" name="getMap" value="Astar!"/>
   </form>
   <!-- <div class="row">
-    <form action="/" method='GET'>
-      <div class="col-sm"><p>{{src}}</p></div>
-      <div class="col-sm"><p>{{dest}}</p></div>
-    </form>
-  </div> -->
-  <div class="row">
     <div class="col-sm">
       <form action="/astar" method="POST">
         <input type="submit" name="getMap" value="Astar!"/>
       </form>
     </div>
-  </div>
+  </div> -->
 </div>
 {% endblock %}
