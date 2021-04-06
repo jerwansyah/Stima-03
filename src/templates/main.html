@@ -20,7 +20,7 @@
 <div class="container my-3">
   <form action="/upload" method="POST" enctype="multipart/form-data">
       <input type="file" name="file" />
-      <input type="submit" name="sabmeet" value="Submit" />
+      <input type="submit" name="sendGraph" value="Submit" />
   </form> 
 </div>
 {% endblock %}
@@ -31,7 +31,6 @@
     <div class="row">
       <div class="col-sm">
         <select name=nA style="width: 200px">
-          <!-- <option value="{{src}}" selected>{{src}}</option> -->
           {% for nA in nodeA[0:] %}
           <option value="{{nA}}">{{nA}}</option>
           {% endfor %}
@@ -42,7 +41,6 @@
     <div class="row">
       <div class="col-sm">
         <select name=nB style="width: 200px">
-          <!-- <option value="{{dest}}" selected>{{dest}}</option> -->
           {% for nB in nodeB[0:] %}
           <option value="{{nB}}">{{nB}}</option>
           {% endfor %}
@@ -50,15 +48,17 @@
       </div>
       <div class="col-sm">{{dest}}</div>
     </div>
-    <br>
-    <input type="submit" name="getMap" value="Astar!"/>
-  </form>
-  <!-- <div class="row">
-    <div class="col-sm">
-      <form action="/astar" method="POST">
-        <input type="submit" name="getMap" value="Astar!"/>
-      </form>
+    <div class="row">
+      <div class="col-sm">
+        <p>
+          {{ cost }}
+        </p>
+      </div>
     </div>
-  </div> -->
+    <div class="row">
+      <div class="col-sm">
+      <input type="submit" name="getMap" value="Astar!"/>
+    </div>
+  </form>
 </div>
 {% endblock %}

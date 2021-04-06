@@ -1,8 +1,8 @@
 # TODO
 - [ ] algoritma a*
 - [x] parser
-- [ ] graf
-- [ ] visualisasi graf ke peta
-- [ ] terima input
-- [ ] masukin website
-- [ ] favicon
+- [x] graf
+- [x] visualisasi graf ke peta
+- [x] terima input
+- [x] masukin website
+- [x] favicon
