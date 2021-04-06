@@ -20,8 +20,8 @@ def createMap(graph, src, dest):
         lon = [],
         lat = [],
         marker = {'size': 10}))
-    result = astar(getIndexFromName(graph,src),getIndexFromName(graph,dest),graph)
-    # print(result)
+    result = astar(graph[getIndexFromName(graph,src)],graph[getIndexFromName(graph,dest)],graph)
+    print(result)
     for i in graph:
         lintang.append(i.name[2])
         bujur.append(i.name[1])
@@ -33,7 +33,7 @@ def createMap(graph, src, dest):
                     lat = [i.name[1],x[1]],
                     showlegend = False,
                     hoverinfo = "none",
-                    line_color = '#FFFFFF'))
+                    line_color = '#FF0000'))
             else:
                 fig.add_trace(go.Scattermapbox(
                     mode = "lines",
@@ -57,12 +57,13 @@ def createMap(graph, src, dest):
     fig.update_layout(
         margin ={'l':0,'t':0,'b':0,'r':0},
         mapbox = {
-            'center': {'lon': graph[0].name[2], 'lat': graph[0].name[1]},
+            'center': {'lon': float(graph[0].name[2]), 'lat': float(graph[0].name[1])},
             'style': "open-street-map",
-            'center': {'lon': -20, 'lat': -20},
-            'zoom': 1})
+            'center': {'lon': float(graph[0].name[2]), 'lat': float(graph[0].name[1])},
+            'zoom': 15})
 
     plot_url = py.plot(fig,auto_open=False)
+    print(plot_url)
     return(plot_url)
 
 # result = createMap(makeGraph(parse("test.txt")))

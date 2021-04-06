@@ -27,12 +27,12 @@
 
 {% block chooseNodes %}
 <div class="container">
-  <form action="/upload" method="GET">
+  <form action="/astar" method="POST">
     <div class="row">
       <div class="col-sm">
         <select name=nA style="width: 200px">
-          <option value="{{src}}" selected>{{src}}</option>
-          {% for nA in nodeA[1:] %}
+          <!-- <option value="{{src}}" selected>{{src}}</option> -->
+          {% for nA in nodeA[0:] %}
           <option value="{{nA}}">{{nA}}</option>
           {% endfor %}
         </select>
@@ -42,8 +42,8 @@
     <div class="row">
       <div class="col-sm">
         <select name=nB style="width: 200px">
-          <option value="{{dest}}" selected>{{dest}}</option>
-          {% for nB in nodeB[1:] %}
+          <!-- <option value="{{dest}}" selected>{{dest}}</option> -->
+          {% for nB in nodeB[0:] %}
           <option value="{{nB}}">{{nB}}</option>
           {% endfor %}
         </select>

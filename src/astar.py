@@ -16,7 +16,11 @@ def astar(source,target,graph):
             # print("--------------------------------x[1] dan x[2]--------------------------------")
             # print (x[1],x[2])
             if ((x[1],x[2]) not in visited):
-                tetangga.append(float(before.cost + y + getDistance(x[1],x[2],target.name[1],target.name[2]))) # Masukan nilai kedalam list
+                print(searchNode(x,graph).cost)
+                print("========================")
+                print(x[0],y)
+                print("========================")
+                tetangga.append(float(searchNode(x,graph).cost + y + getDistance(x[1],x[2],target.name[1],target.name[2]))) # Masukan nilai kedalam list
                 tetangga.append(x)   #Jika iya maka perbandingkan value g(n) + h(n)
                 # source.cost = before.cost + y
                 # print()
@@ -24,11 +28,14 @@ def astar(source,target,graph):
                 # print(searchNode(x,graph).path)
                 if (len(searchNode(x,graph).path) == 0):
                     searchNode(x,graph).path.extend(before.path)
+                    searchNode(x,graph).cost += y
                 # print(searchNode(x,graph).path)
                 if (x[0] not in searchNode(x,graph).path):
                     searchNode(x,graph).path.append(x[0])
+                    searchNode(x,graph).cost += y
                 # print(searchNode(x,graph).path)
                 # print(searchNode(x,graph).path)
+                print(searchNode(x,graph).cost)
             if (len(tetangga) != 0):
                 hasiltetangga.append(tetangga)
         hasiltetangga.sort(reverse=True)
@@ -37,8 +44,9 @@ def astar(source,target,graph):
         #     source.path.extend(before.path)
         # source.path.append(source.name[0])
         # print(source.path)
-        before.cost += hasiltetangga[len(hasiltetangga)-1][0]
+        # before.cost += hasiltetangga[len(hasiltetangga)-1][0]
         source = searchNode(hasiltetangga[len(hasiltetangga)-1][1],graph)
+        # source.cost = before.cost
         before = source
         # print("------------")
         # print(before.path)
@@ -48,8 +56,10 @@ def astar(source,target,graph):
         # if (source.name[0] not in result):
         if (source.name == target.name):
             found = True
+            # source.cost = before.cost
     result.extend(source.path)
     clean(graph)
+    print(source.cost)
     return result
 
 def searchNode(name,graph):
@@ -74,7 +84,7 @@ def clean(graph):
 # for i in graph:
 #     result.append(float(i.name[2]))
 # print(result)
-# print(astar(graph[1],graph[19],graph))
+# print(astar(graph[],graph[19],graph))
 # print(astar(graph[1],graph[0],graph))
 # print(astar(graph[0],graph[19],graph))
 # print(astar(graph[0],graph[16],graph))
