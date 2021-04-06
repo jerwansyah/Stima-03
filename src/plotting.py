@@ -5,7 +5,7 @@ import chart_studio.tools as tls
 
 from astar import *
 
-chart_studio.tools.set_credentials_file(username='Zenovore', api_key='WVo1aIq79gDxkydrcXbn')
+chart_studio.tools.set_credentials_file(username='TucilStimaIP4', api_key='mHblEi7fouhLhed0Fk12')
 
 def getIndexFromName(graph, name):
     for i in range(len(graph)):

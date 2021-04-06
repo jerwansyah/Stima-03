@@ -104,7 +104,9 @@ def viewMap():
                 # print(gobj.src)
                 # print(gobj.dest)
                 # print(gobj.result)
-                pranala = createMap(gobj.result,gobj.src,gobj.dest)
+                hasil = createMap(gobj.result,gobj.src,gobj.dest)
+                pranala = hasil[0]
+                cost = hasil[0]
                 nodeA = gobj.nodeA
                 nodeB = gobj.nodeB
                 src = gobj.src
