@@ -52,7 +52,7 @@ def createMap(graph):
     fig.update_layout(
         margin ={'l':0,'t':0,'b':0,'r':0},
         mapbox = {
-            'center': {'lon': 10, 'lat': 10},
+            'center': {'lon': graph[0].name[2], 'lat': graph[0].name[1]},
             'style': "open-street-map",
             'center': {'lon': -20, 'lat': -20},
             'zoom': 1})
