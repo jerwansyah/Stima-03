@@ -7,7 +7,12 @@ from astar import *
 
 chart_studio.tools.set_credentials_file(username='Zenovore', api_key='WVo1aIq79gDxkydrcXbn')
 
-def createMap(graph):
+def getIndexFromName(graph, name):
+    for i in range(len(graph)):
+        if graph[i].name[0] == name:
+            return i
+
+def createMap(graph, src, dest):
     lintang =[]
     bujur =[]
     fig = go.Figure(go.Scattermapbox(
@@ -15,7 +20,7 @@ def createMap(graph):
         lon = [],
         lat = [],
         marker = {'size': 10}))
-    result = astar(graph[1],graph[19],graph)
+    result = astar(getIndexFromName(graph,src),getIndexFromName(graph,dest),graph)
     # print(result)
     for i in graph:
         lintang.append(i.name[2])
@@ -59,8 +64,6 @@ def createMap(graph):
 
     plot_url = py.plot(fig,auto_open=False)
     return(plot_url)
-    
-    # fig.create_html("templates/check.html")
 
-result = createMap(makeGraph(parse("test.txt")))
-print(result)
+# result = createMap(makeGraph(parse("test.txt")))
+# print(result)
