@@ -25,7 +25,7 @@ gobj.dest = ''
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/')
+@app.route('/') # Homepage
 def route():
     with test:
         result = gobj.result
@@ -35,7 +35,7 @@ def route():
         dest = gobj.dest
     return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala='', cost='')
 
-@app.route('/upload', methods=['POST', 'GET'])
+@app.route('/upload', methods=['POST', 'GET']) # Parsing files, uploading file
 def uploadFile():
     if 'sendGraph' in request.form:
         # check if the post request has the file part
@@ -55,7 +55,7 @@ def uploadFile():
             with open(os.path.join(app.config['UPLOAD_FOLDER'], filename)) as f:
                 result = makeGraph(parse(f))
 
-            nodeA = [i.name[0] for i in result]
+            nodeA = [i.name[0] for i in result] # Memberikan option pada combo box sesuai dengan node pada graf
             nodeB = [i.name[0] for i in result]
             src = nodeA[0]
             dest = nodeB[0]
@@ -70,7 +70,7 @@ def uploadFile():
         return render_template('main.html', nodeA=nodeA, nodeB=nodeB, src=src, dest=dest, pranala='', cost='')
     return render_template('main.html')
 
-@app.route('/astar', methods=['POST', 'GET'])
+@app.route('/astar', methods=['POST', 'GET']) # Melakukan algoritma A*
 def viewMap():
     if request.method == 'POST':
         if 'getMap' in request.form:
@@ -80,11 +80,11 @@ def viewMap():
 
                 output = createMap(gobj.result,gobj.src,gobj.dest)
                 pranala = output[0]       
-                if output[1] == '-1':
+                if output[1] == '-1': # Case Node yang dipilih sama
                     cost = 'Nodes chosen are not unique'
-                elif output[1] == '-2':
+                elif output[1] == '-2': # Case Node yang dipilih tidak dapat diakses
                     cost = 'No available path'
-                else:
+                else: # kasus Normal, dimana nilai Cost tidak negatif
                     cost = f'Cost: {output[1]:.6f} km'
                 nodeA = gobj.nodeA
                 nodeB = gobj.nodeB
